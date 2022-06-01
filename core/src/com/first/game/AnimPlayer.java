@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+// Homework2
 public class AnimPlayer {
     Texture texture;
     Animation<TextureRegion> animation;
