@@ -9,8 +9,9 @@ public class AnimPlayer {
     Texture texture;
     Animation<TextureRegion> animation;
     private float time;
+    private boolean loop;
 
-    public AnimPlayer(String name, int width, int height, float fps) {
+    public AnimPlayer(String name, int width, int height, float fps, Animation.PlayMode mode) {
         texture = new Texture(name);
         TextureRegion region = new TextureRegion(texture);
         TextureRegion[][] regions = region.split(region.getRegionWidth() / width, region.getRegionHeight() / height);
@@ -23,9 +24,10 @@ public class AnimPlayer {
             }
         }
         animation = new Animation<>(1.0f / fps, regions1);
+        animation.setPlayMode(mode);
     }
 
-    public void setTime(float time) {
+    public void step(float time) {
         this.time += time;
     }
 
