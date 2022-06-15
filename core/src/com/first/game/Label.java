@@ -12,7 +12,7 @@ public class Label {
         FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("ofont.ru_Zametka Parletter.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter fontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         fontParameter.size = size;
-        fontParameter.characters = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm;:,.?!@#$%^&*()_+=-123456789";
+        fontParameter.characters = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm;:,.?!@#$%^&*()_+=-0123456789";
         this.bitmapFont = fontGenerator.generateFont(fontParameter);
     }
 
