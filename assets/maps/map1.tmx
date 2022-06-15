@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.8" tiledversion="1.8.5" orientation="orthogonal" renderorder="right-down" width="136" height="75" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="30">
+ <tileset firstgid="1" name="kartinki" tilewidth="16" tileheight="16" tilecount="4096" columns="64">
+  <image source="kartinki.png" width="1024" height="1024"/>
+ </tileset>
+ <layer id="1" name="Tile Layer 1" width="136" height="75">
+  <data encoding="base64" compression="zlib">
+   eJzt28lu00AAgOGYXriFbup6ZyuI8iLd1fUOFFqpvAjdEEu5woHyLmytWK9wKQd4A34JjZpajsdJsZWq/yf9shJNRuOp4yhSWr9Qq12ibuqhXuqjfuok9RLXOcAcgzREwzRCox12/nleJrXaq6ScuSfYh0maommaoVma67D9KXOd88yxQIu0RMu00mHnn+cH18bPkq6PR+zDJm3RNu3QLj2O7M8467lNVxl3rYK9bGedYY0xT5jjKT2j57RHLyo4p9/05z+8/rTz5HnLPryj9/SBPtIBHUb2Z4N9f0j3GLdawV62s86wxphPzPGZvtBX+kbfKzinW8m/a/i0ry/z+qh38blO3dRDvdRH/V3Z48N7Mn3Mc53GGo4xYdwN5r2ZtLbOxnVlre0yj68kJ+ceYI5BGqJhGqHRJuefNVfs8z/99yv6vm82Lv18q/eRcM/fZ81vIn+7CfZhkqZommZoluaa7E94T6aPee7Tg4ZjTBi3xrzrSWvrbFxX1tru8PhucnLueeZYoEVaomVaKXB9hLlin//p+0R4HLt/NBuXfr7ofEG45x8x9lfB+9fri2bHeX1YXpIkSZIkSZIkSZIk6XzZz/kNUtbv1/LGx14f+z2cpOr5vpQkSZKkcvm9S5IkSdJZ4fcXSZIkSZIkSZIkSZIkSZIkSZIkSZIkSSruyP/RliRJkiRJUpv+AmMwJeQ=
+  </data>
+ </layer>
+ <objectgroup id="2" name="Object Layer 1">
+  <object id="1" name="camera" x="298.46" y="-18.2938">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="4" name="coins">
+  <object id="15" x="240.076" y="23.4265"/>
+  <object id="17" x="368.382" y="87.6219"/>
+  <object id="18" x="637.418" y="63.5567"/>
+  <object id="19" x="898.433" y="24.0652"/>
+  <object id="20" x="862.643" y="56.7691"/>
+  <object id="21" x="1032.95" y="87.6219"/>
+  <object id="22" x="1280.39" y="62.3226"/>
+  <object id="23" x="1440.21" y="57.3862"/>
+  <object id="24" x="1537.09" y="24.0652"/>
+  <object id="25" x="1667.28" y="56.152"/>
+  <object id="26" x="1796.25" y="22.8311"/>
+  <object id="27" x="1854.87" y="58.0032"/>
+  <object id="28" x="2080.09" y="87.0048"/>
+  <object id="29" x="2080.09" y="87.0048"/>
+ </objectgroup>
+</map>
