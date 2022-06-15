@@ -14,8 +14,15 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import java.util.ArrayList;
@@ -34,8 +41,52 @@ public class MainClass extends ApplicationAdapter {
     private MyCharacter robot;
     private int score;
 
+    private World world;
+    private Box2DDebugRenderer debugRenderer;
+    private Body heroBody;
+
     @Override
     public void create() {
+
+        world = new World(new Vector2(0, -9.81f), true);
+        debugRenderer = new Box2DDebugRenderer();
+
+        BodyDef def = new BodyDef();
+        FixtureDef fdef = new FixtureDef();
+        PolygonShape polygonShape = new PolygonShape();
+
+        // land
+        def.position.set(new Vector2(2367.95f, 111));
+        def.type = BodyDef.BodyType.StaticBody;
+        fdef.density = 1;
+        fdef.friction = 1f;
+        fdef.restitution = 0.0f;
+        polygonShape.setAsBox(2367.95f, 32.38f);
+        fdef.shape = polygonShape;
+        world.createBody(def).createFixture(fdef);
+
+        // boxes
+        for (int i = 0; i < 10; i++) {
+            def.position.set(new Vector2(MathUtils.random(200, 300), 300f));
+            def.type = BodyDef.BodyType.DynamicBody;
+            def.gravityScale = MathUtils.random(0.5f, 5f);
+            polygonShape.setAsBox(10f, 10f);
+            fdef.shape = polygonShape;
+            world.createBody(def).createFixture(fdef);
+        }
+
+        // hero
+        def.position.set(new Vector2(100, 250f));
+        def.gravityScale = 1.0f;
+        float size = 57;
+        polygonShape.setAsBox(size, size);
+        fdef.density = 0;
+        fdef.shape = polygonShape;
+        heroBody = world.createBody(def);
+        heroBody.createFixture(fdef);
+
+        polygonShape.dispose();
+
         robot = new MyCharacter();
 
         map = new TmxMapLoader().load("maps/map1.tmx");
@@ -78,18 +129,24 @@ public class MainClass extends ApplicationAdapter {
 
         robot.setWalk(false);
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            camera.position.x--;
+            heroBody.applyForceToCenter(new Vector2(-300.0f, 0.0f), true);
             robot.setDir(true);
             robot.setWalk(true);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            camera.position.x++;
+            heroBody.applyForceToCenter(new Vector2(300.0f, 0.0f), true);
             robot.setDir(false);
             robot.setWalk(true);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) camera.position.y++;
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) camera.position.y--;
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+//            heroBody.applyForceToCenter(new Vector2(0.0f, 3000.0f), true);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+//            heroBody.applyForceToCenter(new Vector2(0.0f, -3000.0f), true);
+        }
 
+        camera.position.x = heroBody.getPosition().x;
+        camera.position.y = heroBody.getPosition().y;
         camera.update();
 
         batch.begin();
@@ -114,6 +171,9 @@ public class MainClass extends ApplicationAdapter {
 
         batch.end();
         mapRenderer.render(foreGround);
+
+        world.step(1 / 60.0f, 3, 3);
+        debugRenderer.render(world, camera.combined);
     }
 
     @Override
