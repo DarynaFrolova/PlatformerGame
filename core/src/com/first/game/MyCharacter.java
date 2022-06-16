@@ -4,66 +4,61 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 
 public class MyCharacter {
-    private final AnimPlayer animIdle, animJump, animRight;
-    private boolean dir, run, jump;
-    private float dTime;
-    private final Rectangle rect;
+    private AnimPlayer idle, jump, walkRight;
+    private boolean isJump, isWalk, dir;
+    private Vector2 pos;
+    private Rectangle rect;
 
     public MyCharacter() {
-        animIdle = new AnimPlayer("robot/idle.png", 1, 1, 16.0f, Animation.PlayMode.LOOP);
-        animJump = new AnimPlayer("robot/jump.png", 1, 1, 16.0f, Animation.PlayMode.LOOP);
-        animRight = new AnimPlayer("robot/runRight.png", 6, 1, 16.0f, Animation.PlayMode.LOOP);
-        rect = new Rectangle(Gdx.graphics.getWidth()/4, Gdx.graphics.getHeight()/4, animIdle.getFrame().getRegionWidth(), animIdle.getFrame().getRegionHeight());
+        idle = new AnimPlayer("robot/idle.png", 1, 1, 16.0f, Animation.PlayMode.LOOP);
+        jump = new AnimPlayer("robot/jump.png", 1, 1, 16.0f, Animation.PlayMode.LOOP);
+        walkRight = new AnimPlayer("robot/runRight.png", 6, 1, 16.0f, Animation.PlayMode.LOOP);
+        pos = new Vector2(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
+        rect = new Rectangle(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, walkRight.getFrame().getRegionWidth(), walkRight.getFrame().getRegionHeight());
     }
 
-    public void setTime(float time) {
-        dTime = time;
+    public void setWalk(boolean walk) {
+        isWalk = walk;
     }
 
-    public TextureRegion getFrame(){
-        dTime = Gdx.graphics.getDeltaTime();
-        TextureRegion tmp;
-        if (dir & run & !jump) {
-            animRight.step(dTime);
-            if(!animRight.getFrame().isFlipX())
-                animRight.getFrame().flip(true, false);
-            tmp = animRight.getFrame();
-        } else if (!dir & run & !jump) {
-            animRight.step(dTime);
-            if(animRight.getFrame().isFlipX())
-                animRight.getFrame().flip(true, false);
-            tmp = animRight.getFrame();
-        } else if(dir & !run & !jump) {
-            animIdle.step(dTime);
-            if(!animIdle.getFrame().isFlipX())
-                animIdle.getFrame().flip(true, false);
-            tmp = animIdle.getFrame();
-        } else if (!dir & !run & !jump) {
-            animIdle.step(dTime);
-            if (animIdle.getFrame().isFlipX())
-                animIdle.getFrame().flip(true, false);
-            tmp = animIdle.getFrame();
-        } else if (dir & !run & jump) {
-            animJump.step(dTime);
-            if (!animJump.getFrame().isFlipX())
-                animJump.getFrame().flip(true, false);
-            tmp = animJump.getFrame();
-        } else {
-            animJump.step(dTime);
-            if (!animJump.getFrame().isFlipX())
-                animJump.getFrame().flip(true, false);
-            tmp = animJump.getFrame();
+    public void setDir(boolean dir) {
+        this.dir = dir;
+    }
+
+    public TextureRegion getFrame() {
+        TextureRegion tmpTex = null;
+        if (!isJump && !isWalk && !dir) {
+            idle.step(Gdx.graphics.getDeltaTime());
+            idle.getFrame().flip(false, false);
+            if (idle.getFrame().isFlipX()) idle.getFrame().flip(true, false);
+            tmpTex = idle.getFrame();
+        } else if (!isJump && !isWalk && dir) {
+            idle.step(Gdx.graphics.getDeltaTime());
+            idle.getFrame().flip(true, false);
+            if (!idle.getFrame().isFlipX()) idle.getFrame().flip(true, false);
+            tmpTex = idle.getFrame();
+        } else if (!isJump && isWalk && !dir) {
+            walkRight.step(Gdx.graphics.getDeltaTime());
+            walkRight.getFrame().flip(false, false);
+            if (walkRight.getFrame().isFlipX()) walkRight.getFrame().flip(true, false);
+            tmpTex = walkRight.getFrame();
+        } else if (!isJump && isWalk && dir) {
+            walkRight.step(Gdx.graphics.getDeltaTime());
+            walkRight.getFrame().flip(true, false);
+            if (!walkRight.getFrame().isFlipX()) walkRight.getFrame().flip(true, false);
+            tmpTex = walkRight.getFrame();
         }
-        return tmp;
+        return tmpTex;
     }
 
-    public void setWalk(boolean b) {
-        run = b;
+    public Vector2 getPos() {
+        return pos;
     }
-    public void setDir(boolean b) {
-        dir = b;
+
+    public Rectangle getRect() {
+        return rect;
     }
-    public Rectangle getRect() {return rect;}
 }
