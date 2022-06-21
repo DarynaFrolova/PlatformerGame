@@ -6,11 +6,12 @@ import com.first.game.MainClass;
 
 // Please note that on macOS your application needs to be started with the -XstartOnFirstThread JVM argument
 public class DesktopLauncher {
-	public static void main (String[] arg) {
-		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
-		config.setForegroundFPS(60);
-		config.setTitle("FirstGame");
-		new Lwjgl3Application(new MainClass(), config);
+    public static void main(String[] arg) {
+        Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
+        config.setForegroundFPS(60);
+        config.setTitle("FirstGame");
+        config.setAudioConfig(1024, 512, 9);
+        new Lwjgl3Application(new MainClass(), config);
 
-	}
+    }
 }
