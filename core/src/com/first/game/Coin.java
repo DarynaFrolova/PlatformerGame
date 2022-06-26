@@ -5,6 +5,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -28,7 +29,7 @@ public class Coin {
     }
 
     public Coin(Vector2 position) {
-        animPlayer = new AnimPlayer("coins.png", 8, 1, 10, Animation.PlayMode.LOOP);
+        animPlayer = new AnimPlayer("images/coins.png", 8, 1, 10, Animation.PlayMode.LOOP);
         this.position = new Vector2(position);
         rectangle = new Rectangle(position.x, position.y, animPlayer.getFrame().getRegionWidth(), animPlayer.getFrame().getRegionWidth());
         sound = Gdx.audio.newSound(Gdx.files.internal("sounds/sound_coin.mp3"));

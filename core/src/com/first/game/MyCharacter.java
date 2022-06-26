@@ -9,16 +9,16 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class MyCharacter {
-    private AnimPlayer idle, jump, walkRight;
+    private final AnimPlayer idle, jump, walkRight;
     private boolean isJump, isWalk, dir;
-    private Vector2 pos;
-    private Rectangle rect;
+    private final Vector2 pos;
+    private final Rectangle rect;
 
     public MyCharacter() {
         idle = new AnimPlayer("robot/idle.png", 1, 1, 16.0f, Animation.PlayMode.LOOP);
         jump = new AnimPlayer("robot/jump.png", 1, 1, 16.0f, Animation.PlayMode.LOOP);
         walkRight = new AnimPlayer("robot/runRight.png", 6, 1, 16.0f, Animation.PlayMode.LOOP);
-        pos = new Vector2(Gdx.graphics.getWidth() / 2 - idle.getFrame().getRegionWidth() / 2, Gdx.graphics.getHeight() / 2 - idle.getFrame().getRegionHeight() / 2);
+        pos = new Vector2((float)Gdx.graphics.getWidth() / 2 - (float)idle.getFrame().getRegionWidth() / 2, (float)Gdx.graphics.getHeight() / 2 - (float)idle.getFrame().getRegionHeight() / 2);
         rect = new Rectangle(pos.x, pos.y, walkRight.getFrame().getRegionWidth(), walkRight.getFrame().getRegionHeight());
     }
 
@@ -61,8 +61,8 @@ public class MyCharacter {
     }
 
     public Rectangle getRect(OrthographicCamera camera) {
-        float cx = Gdx.graphics.getWidth() / 2 - ((rect.width / 2) / camera.zoom);
-        float cy = Gdx.graphics.getHeight() / 2 - ((rect.height / 2) / camera.zoom);
+        float cx = (float)Gdx.graphics.getWidth() / 2 - ((rect.width / 2) / camera.zoom);
+        float cy = (float)Gdx.graphics.getHeight() / 2 - ((rect.height / 2) / camera.zoom);
         float cW = rect.getWidth() / camera.zoom;
         float cH = rect.getHeight() / camera.zoom;
         return new Rectangle(cx, cy, cW, cH);
@@ -73,8 +73,8 @@ public class MyCharacter {
     }
 
     public void shapeDraw(ShapeRenderer renderer, OrthographicCamera camera) {
-        float cx = Gdx.graphics.getWidth() / 2 - ((rect.width / 2) / camera.zoom);
-        float cy = Gdx.graphics.getHeight() / 2 - ((rect.height / 2) / camera.zoom);
+        float cx = (float)Gdx.graphics.getWidth() / 2 - ((rect.width / 2) / camera.zoom);
+        float cy = (float)Gdx.graphics.getHeight() / 2 - ((rect.height / 2) / camera.zoom);
         float cW = rect.getWidth() / camera.zoom;
         float cH = rect.getHeight() / camera.zoom;
         renderer.rect(cx, cy, cW, cH);
