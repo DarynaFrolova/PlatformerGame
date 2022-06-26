@@ -1,8 +1,9 @@
-package com.first.game;
+package com.first.game.screens;
 
-import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -20,35 +21,39 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.first.game.Coin;
+import com.first.game.Label;
+import com.first.game.MyCharacter;
+import com.first.game.PhysX;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainClass extends ApplicationAdapter {
-    private SpriteBatch batch;
-    private Label label;
-    private TiledMap map;
-    private OrthogonalTiledMapRenderer mapRenderer;
-    private OrthographicCamera camera;
-    private List<Coin> coinList;
-    private Texture fon;
-    private Texture heart;
-    private MyCharacter chip;
-    private PhysX physX;
-    private ShapeRenderer renderer;
-
-    private int[] foreGround;
-
+public class GameScreen implements Screen {
+    private final SpriteBatch batch;
+    private final ShapeRenderer renderer;
+    private final Label label;
+    private final TiledMap map;
+    private final OrthogonalTiledMapRenderer mapRenderer;
+    private final OrthographicCamera camera;
+    private final List<Coin> coinList;
+    private final Texture background;
+    private final Texture heart;
+    private final MyCharacter robot;
+    private final PhysX physX;
+    private final Music music;
+    private final int[] foreGround;
     private int score;
-    private Music music;
+    private final boolean start = true;
+    final Game game;
 
-    @Override
-    public void create() {
+    public GameScreen(Game game){
+        this.game = game;
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         physX = new PhysX();
 
-        chip = new MyCharacter();
-        fon = new Texture("background.png");
+        robot = new MyCharacter();
+        background = new Texture("images/background.png");
         map = new TmxMapLoader().load("maps/map2.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(map);
 
@@ -57,7 +62,7 @@ public class MainClass extends ApplicationAdapter {
             physX.addObjects(mo);
         }
         MapObject mo1 = map.getLayers().get("Hero Layer").getObjects().get("hero");
-        physX.addObject(mo1, chip.getRect(camera));
+        physX.addObject(mo1, robot.getRect(camera));
         System.out.print("" + physX.barrelInit());
 
         foreGround = new int[1];
@@ -67,7 +72,7 @@ public class MainClass extends ApplicationAdapter {
         renderer = new ShapeRenderer();
 
         label = new Label(40);
-        heart = new Texture("heart.png");
+        heart = new Texture("images/heart.png");
 
         coinList = new ArrayList<>();
         MapLayer ml = map.getLayers().get("Coins");
@@ -84,75 +89,102 @@ public class MainClass extends ApplicationAdapter {
         music = Gdx.audio.newMusic(Gdx.files.internal("sounds/game-music.mp3"));
         music.setLooping(true);
         music.setVolume(0.005f);
-//        music.play();
+        music.play();
 
         camera.zoom = 0.9f;
-
     }
 
     @Override
-    public void render() {
+    public void show() {
+
+    }
+
+
+    @Override
+    public void render(float delta) {
         ScreenUtils.clear(0, 0, 0, 1);
 
 
-        chip.setWalk(false);
+        robot.setWalk(false);
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             physX.setHeroForce(new Vector2(-1500, 0));
-            chip.setDir(true);
-            chip.setWalk(true);
+            robot.setDir(true);
+            robot.setWalk(true);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             physX.setHeroForce(new Vector2(1500, 0));
-            chip.setDir(false);
-            chip.setWalk(true);
+            robot.setDir(false);
+            robot.setWalk(true);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.UP) && physX.cl.isOnGround()) {
             physX.setHeroForce(new Vector2(0, 2500));
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) camera.position.y--;
-//        if (Gdx.input.isKeyPressed(Input.Keys.S)) {start=true;}
 
         camera.position.x = physX.getHero().getPosition().x;
         camera.position.y = physX.getHero().getPosition().y;
         camera.update();
 
         batch.begin();
-        batch.draw(fon, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         batch.end();
 
         mapRenderer.setView(camera);
         mapRenderer.render();
 
         batch.begin();
-        batch.draw(chip.getFrame(), chip.getRect(camera).x, chip.getRect(camera).y, chip.getRect(camera).getWidth(), chip.getRect(camera).getHeight());
+        batch.draw(robot.getFrame(), robot.getRect(camera).x, robot.getRect(camera).y, robot.getRect(camera).getWidth(), robot.getRect(camera).getHeight());
         batch.draw(heart, Gdx.graphics.getWidth() - 70, Gdx.graphics.getHeight() - 70, 70, 70);
         label.draw(batch, "Coins collected: " + score, 3, 10);
 
         for (int i = 0; i < coinList.size(); i++) {
             int state;
             state = coinList.get(i).draw(batch, camera);
-            if (coinList.get(i).isOverlaps(chip.getRect(camera), camera)) {
+            if (coinList.get(i).isOverlaps(robot.getRect(camera), camera)) {
                 if (state == 0) coinList.get(i).setState();
                 if (state == 2) {
                     coinList.remove(i);
                     score++;
+                    if (score == 25) {
+                        music.stop();
+                        game.setScreen(new WinScreen(game));
+                    }
                 }
             }
         }
         batch.end();
-        physX.debugDraw(camera);
 
         physX.step();
 
         renderer.begin(ShapeRenderer.ShapeType.Filled);
         renderer.setColor(Color.CORAL);
         for (Fixture fixture : physX.barrelBodys) {
-            float cx = (fixture.getBody().getPosition().x - camera.position.x) / camera.zoom + (float)Gdx.graphics.getWidth() / 2;
-            float cy = (fixture.getBody().getPosition().y - camera.position.y) / camera.zoom + (float)Gdx.graphics.getHeight() / 2;
+            float cx = (fixture.getBody().getPosition().x - camera.position.x) / camera.zoom + Gdx.graphics.getWidth() / 2;
+            float cy = (fixture.getBody().getPosition().y - camera.position.y) / camera.zoom + Gdx.graphics.getHeight() / 2;
             float cR = fixture.getShape().getRadius() / camera.zoom;
             renderer.circle(cx, cy, cR);
         }
         renderer.end();
+
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
 
     }
 
@@ -166,3 +198,4 @@ public class MainClass extends ApplicationAdapter {
         music.dispose();
     }
 }
+

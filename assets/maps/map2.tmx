@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.5" orientation="orthogonal" renderorder="right-down" width="159" height="28" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="121">
+<map version="1.8" tiledversion="1.8.5" orientation="orthogonal" renderorder="right-down" width="159" height="28" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="122">
  <tileset firstgid="1" name="pictires" tilewidth="16" tileheight="16" tilecount="4096" columns="64">
   <image source="pictures.png" width="1024" height="1024"/>
  </tileset>
@@ -31,7 +31,7 @@
     <property name="type" value="StaticBody"/>
    </properties>
   </object>
-  <object id="4" x="537.922" y="250.193">
+  <object id="4" x="470.118" y="247.453">
    <properties>
     <property name="awake" type="bool" value="true"/>
     <property name="density" type="float" value="1"/>
@@ -84,11 +84,6 @@
     <property name="name" value="land"/>
     <property name="restitution" type="float" value="0.125"/>
     <property name="type" value="StaticBody"/>
-   </properties>
-  </object>
-  <object id="10" x="1326.72" y="247.206">
-   <properties>
-    <property name="awake" type="bool" value="true"/>
    </properties>
   </object>
   <object id="11" x="1730.09" y="182.814">
@@ -233,7 +228,7 @@
     <property name="type" value="StaticBody"/>
    </properties>
   </object>
-  <object id="33" x="1634.01" y="170.58">
+  <object id="33" x="1619.63" y="166.471">
    <properties>
     <property name="awake" type="bool" value="true"/>
     <property name="density" type="float" value="1"/>
@@ -256,6 +251,17 @@
    </properties>
   </object>
   <object id="35" x="2330.38" y="200.682">
+   <properties>
+    <property name="awake" type="bool" value="true"/>
+    <property name="density" type="float" value="1"/>
+    <property name="friction" type="float" value="0.25"/>
+    <property name="gravityScale" type="float" value="1"/>
+    <property name="name" value="land"/>
+    <property name="restitution" type="float" value="0.125"/>
+    <property name="type" value="StaticBody"/>
+   </properties>
+  </object>
+  <object id="121" x="956.784" y="235.6">
    <properties>
     <property name="awake" type="bool" value="true"/>
     <property name="density" type="float" value="1"/>
@@ -610,126 +616,6 @@
     <property name="restitution" type="float" value="0.125"/>
     <property name="type" value="StaticBody"/>
    </properties>
-  </object>
-  <object id="90" name="bomb" x="301.285" y="175.438">
-   <properties>
-    <property name="awake" type="bool" value="false"/>
-    <property name="density" type="float" value="1"/>
-    <property name="friction" type="float" value="0.25"/>
-    <property name="gravityScale" type="float" value="15"/>
-    <property name="name" value="circle"/>
-    <property name="restitution" type="float" value="1"/>
-    <property name="type" value="DynamicBody"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="91" name="bomb" x="467.799" y="106.956">
-   <properties>
-    <property name="awake" type="bool" value="false"/>
-    <property name="density" type="float" value="1"/>
-    <property name="friction" type="float" value="0.25"/>
-    <property name="gravityScale" type="float" value="15"/>
-    <property name="name" value="circle"/>
-    <property name="restitution" type="float" value="1"/>
-    <property name="type" value="DynamicBody"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="92" name="bomb" x="423.416" y="74.9418">
-   <properties>
-    <property name="awake" type="bool" value="false"/>
-    <property name="density" type="float" value="1"/>
-    <property name="friction" type="float" value="0.25"/>
-    <property name="gravityScale" type="float" value="15"/>
-    <property name="name" value="circle"/>
-    <property name="restitution" type="float" value="1"/>
-    <property name="type" value="DynamicBody"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="93" name="bomb" x="357.433" y="175.765">
-   <properties>
-    <property name="awake" type="bool" value="false"/>
-    <property name="density" type="float" value="1"/>
-    <property name="friction" type="float" value="0.25"/>
-    <property name="gravityScale" type="float" value="15"/>
-    <property name="name" value="circle"/>
-    <property name="restitution" type="float" value="1"/>
-    <property name="type" value="DynamicBody"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="94" name="bomb" x="710.086" y="75.6694">
-   <properties>
-    <property name="awake" type="bool" value="false"/>
-    <property name="density" type="float" value="1"/>
-    <property name="friction" type="float" value="0.25"/>
-    <property name="gravityScale" type="float" value="15"/>
-    <property name="name" value="circle"/>
-    <property name="restitution" type="float" value="1"/>
-    <property name="type" value="DynamicBody"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="95" name="bomb" x="798.852" y="56.0244">
-   <properties>
-    <property name="awake" type="bool" value="false"/>
-    <property name="density" type="float" value="1"/>
-    <property name="friction" type="float" value="0.25"/>
-    <property name="gravityScale" type="float" value="15"/>
-    <property name="name" value="circle"/>
-    <property name="restitution" type="float" value="1"/>
-    <property name="type" value="DynamicBody"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="96" name="bomb" x="585.668" y="52.3865">
-   <properties>
-    <property name="awake" type="bool" value="false"/>
-    <property name="density" type="float" value="1"/>
-    <property name="friction" type="float" value="0.25"/>
-    <property name="gravityScale" type="float" value="15"/>
-    <property name="name" value="circle"/>
-    <property name="restitution" type="float" value="1"/>
-    <property name="type" value="DynamicBody"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="116" name="bomb" x="513.219" y="46.3576">
-   <properties>
-    <property name="awake" type="bool" value="false"/>
-    <property name="density" type="float" value="1"/>
-    <property name="friction" type="float" value="0.25"/>
-    <property name="gravityScale" type="float" value="15"/>
-    <property name="name" value="circle"/>
-    <property name="restitution" type="float" value="1"/>
-    <property name="type" value="DynamicBody"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="117" name="bomb" x="634.631" y="25.3863">
-   <properties>
-    <property name="awake" type="bool" value="false"/>
-    <property name="density" type="float" value="1"/>
-    <property name="friction" type="float" value="0.25"/>
-    <property name="gravityScale" type="float" value="15"/>
-    <property name="name" value="circle"/>
-    <property name="restitution" type="float" value="1"/>
-    <property name="type" value="DynamicBody"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="118" name="bomb" x="333.307" y="152.318">
-   <properties>
-    <property name="awake" type="bool" value="false"/>
-    <property name="density" type="float" value="1"/>
-    <property name="friction" type="float" value="0.25"/>
-    <property name="gravityScale" type="float" value="15"/>
-    <property name="name" value="circle"/>
-    <property name="restitution" type="float" value="1"/>
-    <property name="type" value="DynamicBody"/>
-   </properties>
-   <ellipse/>
   </object>
  </objectgroup>
  <layer id="7" name="Fish" width="159" height="28">
